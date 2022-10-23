@@ -1,109 +1,37 @@
 {
-  "name": "@commitlint/root",
-  "description": "Lint commit messages",
-  "private": true,
+  "name": "github-commit-lint",
   "version": "1.0.0",
-  "license": "MIT",
+  "description": "Checks to see if commit messages meet standards",
+  "main": "index.js",
   "scripts": {
-    "build": "tsc -b",
-    "watch": "tsc -b --watch",
-    "clean": "tsc -b --clean && lerna clean --yes && lerna exec 'git clean -xdf lib' && git clean -xdf node_modules",
-    "commit": "node @commitlint/prompt-cli/cli.js",
-    "deps": "lerna run deps",
-    "pkg": "lerna run pkg",
-    "docs": "docsify serve docs",
-    "lint": "eslint . --ext .js,.ts",
-    "lint-fix": "eslint . --ext .js,.ts --fix",
-    "format": "prettier **/*.{ts,js,json,yml,md} -l",
-    "format-fix": "prettier **/*.{ts,js,json,yml,md} --write",
-    "publish": "lerna publish --conventional-commits",
-    "reinstall": "yarn clean && yarn install",
-    "start": "yarn watch",
-    "test": "cross-env HOME=$PWD jest",
-    "test-ci": "cross-env HOME=$PWD jest --runInBand",
-    "postinstall": "yarn husky install"
-  },
-  "commitlint": {
-    "extends": [
-      "./@commitlint/config-conventional",
-      "./@commitlint/config-lerna-scopes"
-    ]
-  },
-  "prettier": {
-    "singleQuote": true,
-    "bracketSpacing": false
-  },
-  "lint-staged": {
-    "*.{ts,js,json,yml,md}": [
-      "prettier --write"
-    ]
-  },
-  "renovate": {
-    "rangeStrategy": "update-lockfile",
-    "ignorePaths": [
-      "**/fixtures/**/package.json"
-    ],
-    "extends": [
-      "config:base",
-      ":semanticCommitType(chore)",
-      ":semanticCommitScopeDisabled"
-    ],
-    "ignoreDeps": [
-      "@commitlint/test",
-      "@commitlint/test-environment",
-      "@commitlint/utils"
-    ]
-  },
-  "workspaces": [
-    "@alias/*",
-    "@commitlint/*",
-    "@packages/*"
-  ],
-  "engines": {
-    "node": ">=v14"
+    "lint": "eslint index.js",
+    "package": "ncc build index.js -o dist",
+    "test": "eslint index.js && jest",
+    "build": "ncc build index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/conventional-changelog/commitlint.git"
+    "url": "git+https://github.com/OGMikau/github-commit-lint.git"
   },
-  "bugs": {
-    "url": "https://github.com/conventional-changelog/commitlint/issues"
-  },
-  "homepage": "https://github.com/conventional-changelog/commitlint#readme",
   "keywords": [
-    "conventional",
-    "conventional-changelog",
-    "log",
-    "changelog",
-    "lint",
-    "check"
+    "GitHub",
+    "Actions",
+    "JavaScript"
   ],
-  "author": {
-    "name": "Mario Nebl",
-    "email": "hello@herebecode.com"
+
+  "homepage": "https://github.com/OGMikau/github-commit-lint#readme",
+  "dependencies": {
+    "@actions/core": ">=1.2.6",
+    "glob": "^7.1.6",
+    "util": "^0.12.3"
   },
   "devDependencies": {
-    "@lerna/project": "^5.0.0",
-    "@swc/core": "^1.2.207",
-    "@swc/jest": "^0.2.21",
-    "@types/jest": "^29.0.0",
-    "@types/node": "^14.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "cross-env": "^7.0.3",
-    "docsify-cli": "^4.4.3",
-    "eslint": "^8.0.0",
-    "eslint-config-prettier": "^8.0.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^27.0.0",
-    "husky": "^8.0.0",
-    "jest": "^29.0.1",
-    "lerna": "^5.0.0",
-    "lint-staged": "13.0.3",
-    "prettier": "^2.0.5",
-    "typescript": "^4.6.4"
-  },
-  "resolutions": {
-    "**/lodash": "^4.17.19"
+    "@commitlint/cli": "^13.0.0",
+    "@commitlint/config-conventional": "^7.5.0",
+    "dot-prop": ">=4.2.1",
+    "@vercel/ncc": "^0.28.6",
+    "lodash": ">=4.17.21",
+    "trim-newlines": ">=3.0.1",
+    "yargs-parser": ">=13.1.2"
   }
 }

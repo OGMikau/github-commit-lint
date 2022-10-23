@@ -1,0 +1,12 @@
+name: 'github-commit-lint'
+description: 'Checks commit message for proper format'
+branding:
+  icon: 'tag'
+  color: 'gray-dark'
+inputs:
+  message:
+    description: 'commit message'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
